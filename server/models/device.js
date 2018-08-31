@@ -15,9 +15,23 @@ const DeviceSchema = new Schema({
     type: String,
     require: true
   },
+  category: {
+    type: Schema.ObjectId,
+    ref: 'Category'
+  },
   yearManufactured: {
     type: Number,
     require: true
+  },
+  status: {
+    type: String,
+    required: true,
+    enum: ['Working', 'Not Working']
+  },
+  availability: {
+    type: String,
+    required: true,
+    enum: ['Store', 'In Use', 'Maintanance']
   },
   datePurchased: {
     type: Date,
@@ -27,4 +41,4 @@ const DeviceSchema = new Schema({
 });
 
 // Export Model
-module.exports = mongoose.Model('Device', DeviceSchema);
+module.exports = Device = mongoose.model('Device', DeviceSchema);
