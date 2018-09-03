@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 // Create Schema
@@ -17,7 +17,7 @@ const DeviceSchema = new Schema({
   },
   category: {
     type: Schema.ObjectId,
-    ref: 'Category'
+    ref: "Category"
   },
   yearManufactured: {
     type: Number,
@@ -26,12 +26,12 @@ const DeviceSchema = new Schema({
   status: {
     type: String,
     required: true,
-    enum: ['Working', 'Not Working']
+    enum: ["Working", "Not Working"]
   },
   availability: {
     type: String,
     required: true,
-    enum: ['Store', 'In Use', 'Maintanance']
+    enum: ["Store", "In Use", "Maintanance"]
   },
   datePurchased: {
     type: Date,
@@ -40,5 +40,8 @@ const DeviceSchema = new Schema({
   }
 });
 
+DeviceSchema.statics.getCategoryList = function() {
+  return this.aggregate([{ $unwind: "$category" }]);
+};
 // Export Model
-module.exports = Device = mongoose.model('Device', DeviceSchema);
+module.exports = Device = mongoose.model("Device", DeviceSchema);
